@@ -79,6 +79,8 @@ def astaSearch(LOCALITA,MESE_ASTA:list,PREZZO_RANGE:list, cliente:str ):
     #text_found, val 
     #div_link
 
+    ######################### Gabriel aqui estamos convirtiemdo el contenido html en stringa ##########
+    ###############################  ###############################    ###############################
     n = 600
     id_link_found = []
     for m in val:
