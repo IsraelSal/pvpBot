@@ -22,14 +22,16 @@ def astaSearch(LOCALITA,MESE_ASTA:list,PREZZO_RANGE:list, cliente:str ):
     browser = Chrome(executable_path = driver_path, chrome_options=options)
     browser.get(url)
     #search_id = "modalInformativa"
-    class_b = "btn-primary.bottoni-chiusura"
-    element_search = browser.find_element_by_class_name(class_b)
+    #class_b = "button.btn.btn-primary.bottoni-chiusura"
+    class_b = '//*[@id="modalInformativa"]/div/div/div[3]/button'
+    element_search = browser.find_element("xpath",class_b)
     element_search.click()
 
 
 
-    id_re = "class_affina_ricerca.pull-left.btn.btn-link.text-uppercase.button-ricerca-avanzata"
-    rese = browser.find_element_by_class_name(id_re)
+    id_re = '//*[@id="button_avanzata1"]'
+
+    rese = browser.find_element("xpath", id_re)
     rese.click()
 
 
@@ -38,21 +40,21 @@ def astaSearch(LOCALITA,MESE_ASTA:list,PREZZO_RANGE:list, cliente:str ):
     input_id = "IDricercalibera1"
     wait = WebDriverWait(browser, 10)
     element = wait.until(EC.element_to_be_clickable((By.ID, input_id)))
-    search = browser.find_element_by_id(input_id)
+    search = browser.find_element(By.ID,input_id)
     search.clear()
     search.send_keys(f"{LOCALITA}")
     search.submit()
 
 
     ordina = "astaMinima"
-    df = Select(browser.find_element_by_id(ordina))
+    df = Select(browser.find_element(By.ID,ordina))
     df.select_by_visible_text("Data vendita ▼")
 
 
     prezzo_id ="prezzo-da"
     prezzo_id_="prezzo-a"
-    p_da = browser.find_element_by_id(prezzo_id)
-    p_a = browser.find_element_by_id(prezzo_id_)
+    p_da = browser.find_element(By.ID, prezzo_id)
+    p_a = browser.find_element(By.ID, prezzo_id_)
 
     p_da.clear()
     p_a.clear()
@@ -63,11 +65,11 @@ def astaSearch(LOCALITA,MESE_ASTA:list,PREZZO_RANGE:list, cliente:str ):
     p_a.submit()
 
     pg_id = "select-paginazione"
-    pg_ = Select(browser.find_element_by_id(pg_id))
+    pg_ = Select(browser.find_element(By.ID, pg_id))
     pg_.select_by_visible_text("50")
 
     list_ele = "glyphicon.glyphicon-list.hidden-xs"
-    clic_list = browser.find_element_by_class_name(list_ele)
+    clic_list = browser.find_element(By.CLASS_NAME,list_ele)
     clic_list.click()
     today_plus3Days = datetime.datetime.now() + datetime.timedelta(days=3)
     src = browser.page_source
