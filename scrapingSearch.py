@@ -4,6 +4,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 import os
 import numpy as np
@@ -35,10 +36,8 @@ def astaSearch(LOCALITA, MESE_ASTA: list, PREZZO_RANGE: list, cliente: str):
     url = "https://pvp.giustizia.it/pvp/it/homepage.page"
     
     # Initialize Firefox driver with webdriver-manager for automatic driver management
-    browser = webdriver.Firefox(
-        executable_path=GeckoDriverManager().install(),
-        options=options
-    )
+    service = FirefoxService(GeckoDriverManager().install())
+    browser = webdriver.Firefox(service=service, options=options)
     browser.get(url)
     
     # Close the initial modal popup
